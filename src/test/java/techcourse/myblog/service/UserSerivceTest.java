@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import techcourse.myblog.domain.User;
 import techcourse.myblog.service.dto.UserDTO;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,6 +18,8 @@ public class UserSerivceTest {
     private static final String TEST_USERNAME = "test1";
     private static final UserDTO userDTO = new UserDTO(TEST_USERNAME, TEST_EMAIL_1, TEST_PASSWORD_1);
 
+    private static User user;
+
     private UserService userService;
 
     @Autowired
@@ -26,7 +29,7 @@ public class UserSerivceTest {
 
     @BeforeEach
     void setUp() {
-        userService.save(userDTO);
+        user = userService.save(userDTO);
     }
 
     @Test
@@ -48,6 +51,6 @@ public class UserSerivceTest {
 
     @AfterEach
     void tearDown() {
-        userService.delete(TEST_EMAIL_1);
+        userService.delete(user);
     }
 }
