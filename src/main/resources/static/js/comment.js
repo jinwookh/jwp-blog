@@ -2,14 +2,12 @@ const COMMENT = (function () {
     'use strict';
 
     const commentEditTemplate =
-        "<form accept-charset=\"utf-8\" method=\"post\" action =\"{{url}}\">" +
         "<div class=\"add-comment\">" +
         "<input id=\"{{contentsId}}\" name=\"contents\" type=\"hidden\">" +
         "<div id=\"{{editorId}}\" class = \"comment-editor\"></div>" +
         "<input name=\"_method\" type=\"hidden\" value=\"put\"/>" +
-        "<button class=\"btn btn-default\" id=\"{{buttonId}}\" type=\"submit\">댓글 수정" +
-        "</button>" + "</div>" +
-        "</form>";
+        "<button class=\"btn btn-default\" id=\"{{buttonId}}\" >댓글 수정" +
+        "</button>" + "</div>";
 
     const compiledCommentEditTemplate = Handlebars.compile(commentEditTemplate)
 
@@ -65,6 +63,24 @@ const COMMENT = (function () {
                     },
                     height: '200px'
                 });
+
+                const button = document.getElementById(buttonId)
+                button.addEventListener('click', function (event) {
+                    let target = event.target
+                    let parent = target.closest("li")
+                    let form = parent.getElementsByTagName("form")[0]
+                    let contents = document.getElementById(contentsId).value
+
+                    let data = new FormData()
+                    data.append('contents', contents)
+
+                    fetch(form.action, {
+                        method: 'PUT',
+                        body: data
+                    }).then(response => response.json())
+                        .then((json) => json)
+                        .catch(error => error)
+                })
             }
         }
 
