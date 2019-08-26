@@ -21,7 +21,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(HttpSession session, Model model) {
-
+        log.info("session.id ()", session.getId());
         log.info("session.id {}", session.getId());
 
         User user = (User) session.getAttribute("user");
