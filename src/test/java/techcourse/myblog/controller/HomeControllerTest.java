@@ -26,7 +26,7 @@ public class HomeControllerTest {
                 .expectBody()
                 .consumeWith(response -> {
                     String body = new String(response.getResponseBody());
-                    assertThat(body.contains(LOGIN_TEXT)).isTrue();
+                    assertThat(body.contains(LOGIN_TEXT)).isFalse();
                 });
     }
 
