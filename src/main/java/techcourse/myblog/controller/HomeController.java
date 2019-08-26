@@ -25,7 +25,7 @@ public class HomeController {
         log.info("session.id {}", session.getId());
 
         User user = (User) session.getAttribute("user");
-        if (user != null) {
+
             model.addAttribute("user", user);
         }
         model.addAttribute("articles", articleRepository.findAll());
